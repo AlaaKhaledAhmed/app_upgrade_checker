@@ -1,8 +1,8 @@
 name: app_upgrade_checker
 description: "Check for a newer app version from the store (iOS App Store / Google Play) or your backend, and prompt users to update."
 version: 1.0.0
-repository: https://github.com/AlaaKhaledAhmed/app_upgrade
-issue_tracker: https://github.com/AlaaKhaledAhmed/app_upgrade/issues
+repository: https://github.com/AlaaKhaledAhmed/app_upgrade_checker
+issue_tracker: https://github.com/AlaaKhaledAhmed/app_upgrade_checker/issues
 
 environment:
   sdk: ">=3.0.0 <4.0.0"

@@ -367,7 +367,7 @@ works: `{ "latestVersionCode": 55, "storeUrl": "..." }`.
 Your endpoint receives **nothing** — no body, no parameters, and the installed
 version is never sent. The response is the same for everyone, so cache it hard.
 
-> **A live example:** <https://alaakhaledahmed.github.io/app_upgrade/version/android.json>
+> **A live example:** <https://alaakhaledahmed.github.io/app_upgrade_checker/version/android.json>
 > — served from [`docs/version/`](docs/version/) in this repo and used by
 > [`example/lib/main.dart`](example/lib/main.dart).
 

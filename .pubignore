@@ -34,7 +34,7 @@ example/test/
 
 # ── Repo-internal tooling and docs ──
 # docs/ is the GitHub Pages source for the example's remote-JSON endpoints
-# (alaakhaledahmed.github.io/app_upgrade/version/*.json). It must stay in git so
+# (alaakhaledahmed.github.io/app_upgrade_checker/version/*.json). It must stay in git so
 # Pages keeps serving it, but shipping it would also trip pub's
 # "rename docs/ to doc/" layout hint.
 docs/

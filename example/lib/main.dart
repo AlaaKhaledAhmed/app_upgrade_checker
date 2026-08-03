@@ -90,12 +90,12 @@ const _realConfig = AppConfig(
 /// reads as "you are on the latest version".
 const _jsonFileConfig = AppConfig(
   android: CustomSource(
-    url: 'https://alaakhaledahmed.github.io/app_upgrade/version/android.json',
+    url: 'https://alaakhaledahmed.github.io/app_upgrade_checker/version/android.json',
     // Opened by "Update now" when the JSON itself carries no `storeUrl`.
     fallbackStoreUrl: 'https://your.site/download',
   ),
   ios: CustomSource(
-    url: 'https://alaakhaledahmed.github.io/app_upgrade/version/ios.json',
+    url: 'https://alaakhaledahmed.github.io/app_upgrade_checker/version/ios.json',
   ),
 );
 
