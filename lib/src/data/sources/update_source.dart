@@ -1,5 +1,5 @@
-import 'package:app_upgrade/src/data/models/data_handle.dart';
-import 'package:app_upgrade/src/data/models/app_update_data.dart';
+import 'package:app_upgrade_checker/src/data/models/data_handle.dart';
+import 'package:app_upgrade_checker/src/data/models/app_update_data.dart';
 
 /// A swappable provider of "what is the latest available version?".
 ///

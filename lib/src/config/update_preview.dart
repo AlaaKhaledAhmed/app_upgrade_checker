@@ -1,4 +1,4 @@
-import 'package:app_upgrade/src/data/models/app_update_data.dart';
+import 'package:app_upgrade_checker/src/data/models/app_update_data.dart';
 
 /// Forces a canned result instead of checking anything, so you can build and
 /// preview the update screen **before your app is on a store**.

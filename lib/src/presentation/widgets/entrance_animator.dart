@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:app_upgrade/src/presentation/theme/update_entrance.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_entrance.dart';
 
 /// Plays an [UpdateEntrance] over the update screen.
 ///

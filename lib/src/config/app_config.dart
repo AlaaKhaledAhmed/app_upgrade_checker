@@ -1,4 +1,4 @@
-import 'package:app_upgrade/src/config/update_method.dart';
+import 'package:app_upgrade_checker/src/config/update_method.dart';
 
 /// Top-level configuration passed to [AppUpgrade.checkUpdate].
 ///

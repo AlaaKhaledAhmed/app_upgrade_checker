@@ -1,5 +1,5 @@
 name: example
-description: "Example project for app_upgrade package."
+description: "Example project for app_upgrade_checker package."
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  app_upgrade:
+  app_upgrade_checker:
     path: ../
 
   cupertino_icons: ^1.0.8

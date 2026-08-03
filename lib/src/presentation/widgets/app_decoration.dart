@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:app_upgrade/src/core/constants/app_color.dart';
-import 'package:app_upgrade/src/core/extensions/color_extensions.dart';
-import 'package:app_upgrade/src/core/constants/files_path.dart';
+import 'package:app_upgrade_checker/src/core/constants/app_color.dart';
+import 'package:app_upgrade_checker/src/core/extensions/color_extensions.dart';
+import 'package:app_upgrade_checker/src/core/constants/files_path.dart';
 
 enum InputType {
   weight,

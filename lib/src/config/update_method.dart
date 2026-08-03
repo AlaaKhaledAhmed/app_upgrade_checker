@@ -1,4 +1,4 @@
-import 'package:app_upgrade/src/core/enums/force_policy.dart';
+import 'package:app_upgrade_checker/src/core/enums/force_policy.dart';
 
 /// How the Android version is checked. Pick exactly one — each asks only for the
 /// data it needs, so an invalid combination can't be expressed.

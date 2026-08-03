@@ -1,5 +1,5 @@
-import 'package:app_upgrade/src/core/enums/app_error_state.dart';
-import 'package:app_upgrade/src/data/models/app_update_data.dart';
+import 'package:app_upgrade_checker/src/core/enums/app_error_state.dart';
+import 'package:app_upgrade_checker/src/data/models/app_update_data.dart';
 
 /// Outcome of [AppUpgrade.checkUpdate].
 ///

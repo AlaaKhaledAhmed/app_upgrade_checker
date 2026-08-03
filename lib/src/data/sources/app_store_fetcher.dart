@@ -1,12 +1,12 @@
-import 'package:app_upgrade/src/core/constants/constants.dart';
-import 'package:app_upgrade/src/core/enums/app_error_state.dart';
-import 'package:app_upgrade/src/core/enums/force_policy.dart';
-import 'package:app_upgrade/src/services/version_comparator.dart';
-import 'package:app_upgrade/src/services/network/inetwork_services.dart';
-import 'package:app_upgrade/src/data/models/app_info.dart';
-import 'package:app_upgrade/src/data/models/data_handle.dart';
-import 'package:app_upgrade/src/data/models/app_update_data.dart';
-import 'package:app_upgrade/src/data/sources/update_source.dart';
+import 'package:app_upgrade_checker/src/core/constants/constants.dart';
+import 'package:app_upgrade_checker/src/core/enums/app_error_state.dart';
+import 'package:app_upgrade_checker/src/core/enums/force_policy.dart';
+import 'package:app_upgrade_checker/src/services/version_comparator.dart';
+import 'package:app_upgrade_checker/src/services/network/inetwork_services.dart';
+import 'package:app_upgrade_checker/src/data/models/app_info.dart';
+import 'package:app_upgrade_checker/src/data/models/data_handle.dart';
+import 'package:app_upgrade_checker/src/data/models/app_update_data.dart';
+import 'package:app_upgrade_checker/src/data/sources/update_source.dart';
 
 /// Reads the current App Store version straight from the device using Apple's
 /// public iTunes Lookup API — no auth, no backend, no cost.

@@ -5,7 +5,7 @@
 //
 // DESIGN accepts: cosmic | rocketUp | superHero
 import 'package:flutter/material.dart';
-import 'package:app_upgrade/app_upgrade.dart';
+import 'package:app_upgrade_checker/app_upgrade_checker.dart';
 
 const _design = String.fromEnvironment('DESIGN', defaultValue: 'cosmic');
 

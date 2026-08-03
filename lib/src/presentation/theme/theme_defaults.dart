@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import 'package:app_upgrade/src/presentation/theme/update_section.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_section.dart';
 
 /// Neutral values every design starts from — layout, not identity.
 ///

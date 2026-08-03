@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:app_upgrade/src/config/app_config.dart';
-import 'package:app_upgrade/src/config/update_preview.dart';
-import 'package:app_upgrade/src/config/update_method.dart';
-import 'package:app_upgrade/src/core/enums/app_error_state.dart';
-import 'package:app_upgrade/src/core/enums/platform_type.dart';
-import 'package:app_upgrade/src/data/models/app_info.dart';
-import 'package:app_upgrade/src/data/models/update_check_result.dart';
-import 'package:app_upgrade/src/data/sources/app_store_fetcher.dart';
-import 'package:app_upgrade/src/data/sources/preview_fetcher.dart';
-import 'package:app_upgrade/src/data/sources/play_store_fetcher.dart';
-import 'package:app_upgrade/src/data/sources/remote_fetcher.dart';
-import 'package:app_upgrade/src/data/sources/update_source.dart';
-import 'package:app_upgrade/src/presentation/app_upgrade_screen.dart';
-import 'package:app_upgrade/src/presentation/app_upgrade_theme.dart';
-import 'package:app_upgrade/src/services/network/http_network_service.dart';
-import 'package:app_upgrade/src/services/network/inetwork_services.dart';
+import 'package:app_upgrade_checker/src/config/app_config.dart';
+import 'package:app_upgrade_checker/src/config/update_preview.dart';
+import 'package:app_upgrade_checker/src/config/update_method.dart';
+import 'package:app_upgrade_checker/src/core/enums/app_error_state.dart';
+import 'package:app_upgrade_checker/src/core/enums/platform_type.dart';
+import 'package:app_upgrade_checker/src/data/models/app_info.dart';
+import 'package:app_upgrade_checker/src/data/models/update_check_result.dart';
+import 'package:app_upgrade_checker/src/data/sources/app_store_fetcher.dart';
+import 'package:app_upgrade_checker/src/data/sources/preview_fetcher.dart';
+import 'package:app_upgrade_checker/src/data/sources/play_store_fetcher.dart';
+import 'package:app_upgrade_checker/src/data/sources/remote_fetcher.dart';
+import 'package:app_upgrade_checker/src/data/sources/update_source.dart';
+import 'package:app_upgrade_checker/src/presentation/app_upgrade_screen.dart';
+import 'package:app_upgrade_checker/src/presentation/app_upgrade_theme.dart';
+import 'package:app_upgrade_checker/src/services/network/http_network_service.dart';
+import 'package:app_upgrade_checker/src/services/network/inetwork_services.dart';
 
 /// Entry point of the package.
 ///

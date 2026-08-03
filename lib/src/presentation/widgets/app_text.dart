@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:app_upgrade/src/core/constants/app_color.dart';
-import 'package:app_upgrade/src/core/constants/app_size.dart';
-import 'package:app_upgrade/src/core/constants/app_them.dart';
-import 'package:app_upgrade/src/core/constants/files_path.dart';
+import 'package:app_upgrade_checker/src/core/constants/app_color.dart';
+import 'package:app_upgrade_checker/src/core/constants/app_size.dart';
+import 'package:app_upgrade_checker/src/core/constants/app_them.dart';
+import 'package:app_upgrade_checker/src/core/constants/files_path.dart';
 
 class AppText extends StatelessWidget {
   final String text;
@@ -57,7 +57,7 @@ class AppText extends StatelessWidget {
         height: textHeight,
         shadows: shadow,
         fontFamily: fontFamily ?? AppThem().fontFamily,
-        // `package` rewrites the family to `packages/app_upgrade/<family>`,
+        // `package` rewrites the family to `packages/app_upgrade_checker/<family>`,
         // which only resolves for fonts this package ships. A caller-supplied
         // family lives in *their* pubspec, so qualifying it would silently miss
         // and fall back to the default font.

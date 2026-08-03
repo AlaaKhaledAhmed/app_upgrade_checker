@@ -1,5 +1,5 @@
 class FilesPath {
-  static const String packageName = 'app_upgrade';
+  static const String packageName = 'app_upgrade_checker';
   static const String astronautInRocket =
       'assets/lottie/AstronautBlueRocket.json';
   static const String background = 'assets/image/background.webp';

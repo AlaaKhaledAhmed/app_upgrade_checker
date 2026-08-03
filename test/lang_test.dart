@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app_upgrade/app_upgrade.dart';
+import 'package:app_upgrade_checker/app_upgrade_checker.dart';
 
 void main() {
   test('lang translates every default string', () {

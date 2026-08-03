@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import 'package:app_upgrade/src/core/constants/app_size.dart';
-import 'package:app_upgrade/src/core/constants/app_them.dart';
-import 'package:app_upgrade/src/core/constants/files_path.dart';
-import 'package:app_upgrade/src/core/extensions/context_extensions.dart';
-import 'package:app_upgrade/src/presentation/theme/update_background.dart';
-import 'package:app_upgrade/src/presentation/theme/update_badge_style.dart';
-import 'package:app_upgrade/src/presentation/theme/update_button_style.dart';
-import 'package:app_upgrade/src/presentation/theme/update_feature.dart';
-import 'package:app_upgrade/src/presentation/theme/update_title.dart';
-import 'package:app_upgrade/src/presentation/theme/update_visual.dart';
-import 'package:app_upgrade/src/presentation/widgets/app_decoration.dart';
-import 'package:app_upgrade/src/presentation/widgets/app_text.dart';
+import 'package:app_upgrade_checker/src/core/constants/app_size.dart';
+import 'package:app_upgrade_checker/src/core/constants/app_them.dart';
+import 'package:app_upgrade_checker/src/core/constants/files_path.dart';
+import 'package:app_upgrade_checker/src/core/extensions/context_extensions.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_background.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_badge_style.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_button_style.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_feature.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_title.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_visual.dart';
+import 'package:app_upgrade_checker/src/presentation/widgets/app_decoration.dart';
+import 'package:app_upgrade_checker/src/presentation/widgets/app_text.dart';
 
 /// The building blocks of the update screen.
 ///

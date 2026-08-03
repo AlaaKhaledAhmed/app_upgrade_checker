@@ -1,4 +1,4 @@
-import 'package:app_upgrade/src/core/enums/app_error_state.dart';
+import 'package:app_upgrade_checker/src/core/enums/app_error_state.dart';
 
 /// A uniform result envelope for a network call.
 ///

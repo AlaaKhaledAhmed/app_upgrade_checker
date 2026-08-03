@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:app_upgrade/app_upgrade.dart';
+import 'package:app_upgrade_checker/app_upgrade_checker.dart';
 
 void main() => runApp(const MyApp());
 
@@ -112,7 +112,7 @@ AppConfig backendConfig({required String token, required String userSegment}) {
     'Authorization': 'Bearer $token',
     'X-User-Segment': userSegment,
     // Header values must be strings — convert numbers yourself.
-    'X-Client': 'app_upgrade-example',
+    'X-Client': 'app_upgrade_checker-example',
   };
 
   return AppConfig(

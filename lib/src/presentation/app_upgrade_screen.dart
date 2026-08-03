@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:app_upgrade/src/core/extensions/context_extensions.dart';
-import 'package:app_upgrade/src/presentation/app_upgrade_theme.dart';
-import 'package:app_upgrade/src/presentation/theme/update_section.dart';
-import 'package:app_upgrade/src/presentation/widgets/entrance_animator.dart';
-import 'package:app_upgrade/src/presentation/widgets/pulse_glow.dart';
-import 'package:app_upgrade/src/presentation/widgets/update_sections.dart';
+import 'package:app_upgrade_checker/src/core/extensions/context_extensions.dart';
+import 'package:app_upgrade_checker/src/presentation/app_upgrade_theme.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_section.dart';
+import 'package:app_upgrade_checker/src/presentation/widgets/entrance_animator.dart';
+import 'package:app_upgrade_checker/src/presentation/widgets/pulse_glow.dart';
+import 'package:app_upgrade_checker/src/presentation/widgets/update_sections.dart';
 
 /// The built-in update screen. Use it directly or let
 /// `AppUpgrade.showUpdateDialog` present it for you.

@@ -1,9 +1,9 @@
-import 'package:app_upgrade/src/config/update_preview.dart';
-import 'package:app_upgrade/src/core/enums/app_error_state.dart';
-import 'package:app_upgrade/src/data/models/app_info.dart';
-import 'package:app_upgrade/src/data/models/app_update_data.dart';
-import 'package:app_upgrade/src/data/models/data_handle.dart';
-import 'package:app_upgrade/src/data/sources/update_source.dart';
+import 'package:app_upgrade_checker/src/config/update_preview.dart';
+import 'package:app_upgrade_checker/src/core/enums/app_error_state.dart';
+import 'package:app_upgrade_checker/src/data/models/app_info.dart';
+import 'package:app_upgrade_checker/src/data/models/app_update_data.dart';
+import 'package:app_upgrade_checker/src/data/models/data_handle.dart';
+import 'package:app_upgrade_checker/src/data/sources/update_source.dart';
 
 /// Serves an [UpdatePreview]'s canned payload without touching the network.
 ///

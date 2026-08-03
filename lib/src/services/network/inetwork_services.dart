@@ -1,4 +1,4 @@
-import 'package:app_upgrade/src/data/models/data_handle.dart';
+import 'package:app_upgrade_checker/src/data/models/data_handle.dart';
 
 /// Abstraction over the transport used to reach a backend or a store API.
 ///

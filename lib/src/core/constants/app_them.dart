@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:app_upgrade/src/core/constants/app_color.dart';
+import 'package:app_upgrade_checker/src/core/constants/app_color.dart';
 
 class AppThem {
   ///singleton class for app theme

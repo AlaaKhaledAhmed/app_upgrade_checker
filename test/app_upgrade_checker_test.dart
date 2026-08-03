@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app_upgrade/app_upgrade.dart';
+import 'package:app_upgrade_checker/app_upgrade_checker.dart';
 
 void main() {
   // A check reads the installed build via package_info_plus, which needs the
@@ -223,7 +223,7 @@ void main() {
       final families = await familiesOf(
           tester, AppUpgradeTheme.cosmic(fontFamily: 'Cairo'));
 
-      // `package:` would rewrite this to `packages/app_upgrade/Cairo`, which
+      // `package:` would rewrite this to `packages/app_upgrade_checker/Cairo`, which
       // resolves to nothing — the caller's font lives in the caller's pubspec.
       expect(families, contains('Cairo'));
       expect(
@@ -238,7 +238,7 @@ void main() {
       final families = await familiesOf(tester, AppUpgradeTheme.cosmic());
 
       // The fallback ships with this package, so it *must* stay qualified.
-      expect(families, contains('packages/app_upgrade/IBMP'));
+      expect(families, contains('packages/app_upgrade_checker/IBMP'));
     });
   });
 

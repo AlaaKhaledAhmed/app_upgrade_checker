@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:app_upgrade/src/presentation/theme/theme_lang.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/theme_lang.dart';
 
-import 'package:app_upgrade/src/presentation/theme/designs/cosmic_design.dart';
-import 'package:app_upgrade/src/presentation/theme/designs/rocket_up_design.dart';
-import 'package:app_upgrade/src/presentation/theme/designs/super_hero_design.dart';
-import 'package:app_upgrade/src/presentation/theme/theme_defaults.dart';
-import 'package:app_upgrade/src/presentation/theme/update_background.dart';
-import 'package:app_upgrade/src/presentation/theme/update_badge_style.dart';
-import 'package:app_upgrade/src/presentation/theme/update_button_style.dart';
-import 'package:app_upgrade/src/presentation/theme/update_entrance.dart';
-import 'package:app_upgrade/src/presentation/theme/update_pulse.dart';
-import 'package:app_upgrade/src/presentation/theme/update_feature.dart';
-import 'package:app_upgrade/src/presentation/theme/update_section.dart';
-import 'package:app_upgrade/src/presentation/theme/update_title.dart';
-import 'package:app_upgrade/src/presentation/theme/update_visual.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/designs/cosmic_design.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/designs/rocket_up_design.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/designs/super_hero_design.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/theme_defaults.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_background.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_badge_style.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_button_style.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_entrance.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_pulse.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_feature.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_section.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_title.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/update_visual.dart';
 
 /// The complete look of the built-in update screen: every text, color, asset,
 /// gradient and the vertical order of the blocks.

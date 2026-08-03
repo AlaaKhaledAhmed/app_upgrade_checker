@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:package_info_plus/package_info_plus.dart';
 
-import 'package:app_upgrade/src/core/enums/platform_type.dart';
+import 'package:app_upgrade_checker/src/core/enums/platform_type.dart';
 
 /// Snapshot of the *currently installed* app, read from the platform.
 final class AppInfo {

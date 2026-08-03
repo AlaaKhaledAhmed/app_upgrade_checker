@@ -4,10 +4,10 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import 'package:app_upgrade/src/core/constants/constants.dart';
-import 'package:app_upgrade/src/core/enums/app_error_state.dart';
-import 'package:app_upgrade/src/data/models/data_handle.dart';
-import 'package:app_upgrade/src/services/network/inetwork_services.dart';
+import 'package:app_upgrade_checker/src/core/constants/constants.dart';
+import 'package:app_upgrade_checker/src/core/enums/app_error_state.dart';
+import 'package:app_upgrade_checker/src/data/models/data_handle.dart';
+import 'package:app_upgrade_checker/src/services/network/inetwork_services.dart';
 
 /// [INetworkService] backed by the lightweight `http` package.
 ///

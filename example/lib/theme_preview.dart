@@ -2,7 +2,7 @@
 // eyeballed on a device. Run with:
 //   flutter run -t lib/theme_preview.dart
 import 'package:flutter/material.dart';
-import 'package:app_upgrade/app_upgrade.dart';
+import 'package:app_upgrade_checker/app_upgrade_checker.dart';
 
 void main() => runApp(const PreviewApp());
 

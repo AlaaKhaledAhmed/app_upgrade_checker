@@ -1,12 +1,12 @@
-# app_upgrade
+# app_upgrade_checker
 
 **Tell your users a new version is out — and get them to install it.**
 
-`app_upgrade` checks the version running on the user's device against the latest
+`app_upgrade_checker` checks the version running on the user's device against the latest
 one you've released. If they're behind, it shows them a full-screen update screen
 that takes them straight to the download.
 
-### ✨ Why app_upgrade?
+### ✨ Why app_upgrade_checker?
 
 You decide what "the latest version" is — read it from the store, or from your
 own backend or a simple JSON file. And the screen your users see is a designed,
@@ -73,7 +73,7 @@ default** — one flag each brings in that design's own content.
 
 ## How it works
 
-`app_upgrade` reads the **currently installed** version from the device, asks a source what the **latest** version is, and returns
+`app_upgrade_checker` reads the **currently installed** version from the device, asks a source what the **latest** version is, and returns
 one of three outcomes: an update is available (optionally forced), no update, or
 the check failed.
 
@@ -86,11 +86,11 @@ The **source** is what you choose per platform. That's the whole API surface.
 
 ```yaml
 dependencies:
-  app_upgrade: ^1.0.0
+  app_upgrade_checker: ^1.0.0
 ```
 
 ```dart
-import 'package:app_upgrade/app_upgrade.dart';
+import 'package:app_upgrade_checker/app_upgrade_checker.dart';
 ```
 
 ---

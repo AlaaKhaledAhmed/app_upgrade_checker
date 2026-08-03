@@ -1,4 +1,4 @@
-import 'package:app_upgrade/src/services/version_comparator.dart';
+import 'package:app_upgrade_checker/src/services/version_comparator.dart';
 
 /// Decides whether an available update is mandatory, for the **direct store**
 /// path (Google Play / App Store) where no backend or numeric build code is
