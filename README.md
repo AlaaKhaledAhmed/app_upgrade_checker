@@ -15,18 +15,18 @@ animated, fully customizable one.
 |  |  |
 |---|---|
 | 🔌 **The version comes from wherever you want** | The store, or a URL you control — your API or a JSON file. With your own URL, **you** set the latest version, the oldest build still allowed, and whether updating is mandatory. |
+| 🌍 **7 languages built in** | Arabic, English, Urdu, Spanish, Hindi, French, Indonesian — follows the device, with automatic RTL. |
 | 🧪 **Test mode** | See the update screen while you build — even if your app isn't on the store yet. Try any case: forced, optional, up-to-date, or failed. |
-| 🧩 **No backend? Still works** | A static JSON file on GitHub Pages is enough — free, no server. |
 | 🎨 **3 full-screen designs** | Artwork, animation and a clear call to action — ready to ship as-is. |
 | 🎛️ **28 theme fields** | Reorder or hide any block — or pass your own widget. |
 | ✨ **7 entrance animations** | Automatically respect *reduce motion*. |
-| 🌍 **7 languages built in** | Arabic, English, Urdu, Spanish, Hindi, French, Indonesian — follows the device, with automatic RTL. |
+| 🧩 **No backend? Still works** | A static JSON file on GitHub Pages is enough — free, no server. |
 
 ### The three designs
 
 |                Cosmic (default)                 | RocketUp | SuperHero |
 |:-----------------------------------------------:|:---:|:---:|
-| <img src="screenshots/cosmic.webp" width="200"> | <img src="screenshots/rocket_up.webp" width="200"> | <img src="screenshots/super_hero.webp" width="200"> |
+| <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/cosmic.webp" width="200" alt="Cosmic"> | <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/rocket_up.webp" width="200" alt="RocketUp"> | <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/super_hero.webp" width="200" alt="SuperHero"> |
 |           `AppUpgradeTheme.cosmic()`           | `AppUpgradeTheme.rocketUp()` | `AppUpgradeTheme.superHero()` |
 
 ### Optional blocks, on any design
@@ -36,7 +36,7 @@ default** — one flag each brings in that design's own content.
 
 | Default | `showBadge: true` | `showBadge` + `showFeatures` |
 |:---:|:---:|:---:|
-| <img src="screenshots/cosmic.webp" width="200"> | <img src="screenshots/cosmic_badge.webp" width="200"> | <img src="screenshots/cosmic_full.webp" width="200"> |
+| <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/cosmic.webp" width="200" alt="Default"> | <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/cosmic_badge.webp" width="200" alt="With badge"> | <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/cosmic_full.webp" width="200" alt="With badge and features"> |
 
 > **Platforms:** Android and iOS only. This is a mobile-focused package; it does
 > not support web or desktop.
@@ -86,7 +86,7 @@ The **source** is what you choose per platform. That's the whole API surface.
 
 ```yaml
 dependencies:
-  app_upgrade_checker: ^1.0.0
+  app_upgrade_checker: ^1.0.1
 ```
 
 ```dart

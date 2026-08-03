@@ -1,3 +1,15 @@
+## 1.0.1
+
+Documentation only — no API or behaviour changes.
+
+* Fix the screenshots on the pub.dev package page. They were embedded with
+  paths relative to the repository, which pub.dev resolves against the
+  `repository:` URL through its image proxy; the repository was renamed after
+  1.0.0 was published, so those paths no longer pointed anywhere. They are now
+  absolute URLs, which the rename cannot break again.
+* Reorder the feature table in the README so the built-in localization is
+  listed second, and the "no backend needed" note last.
+
 ## 1.0.0
 
 Initial release.
