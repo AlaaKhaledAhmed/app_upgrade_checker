@@ -26,7 +26,7 @@ animated, fully customizable one.
 
 |                Cosmic (default)                 | RocketUp | SuperHero |
 |:-----------------------------------------------:|:---:|:---:|
-| <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/cosmic.webp" width="200" alt="Cosmic"> | <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/rocket_up.webp" width="200" alt="RocketUp"> | <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/super_hero.webp" width="200" alt="SuperHero"> |
+| <img src="screenshots/cosmic.webp" width="200"> | <img src="screenshots/rocket_up.webp" width="200"> | <img src="screenshots/super_hero.webp" width="200"> |
 |           `AppUpgradeTheme.cosmic()`           | `AppUpgradeTheme.rocketUp()` | `AppUpgradeTheme.superHero()` |
 
 ### Optional blocks, on any design
@@ -36,7 +36,7 @@ default** — one flag each brings in that design's own content.
 
 | Default | `showBadge: true` | `showBadge` + `showFeatures` |
 |:---:|:---:|:---:|
-| <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/cosmic.webp" width="200" alt="Default"> | <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/cosmic_badge.webp" width="200" alt="With badge"> | <img src="https://raw.githubusercontent.com/AlaaKhaledAhmed/app_upgrade_checker/main/screenshots/cosmic_full.webp" width="200" alt="With badge and features"> |
+| <img src="screenshots/cosmic.webp" width="200"> | <img src="screenshots/cosmic_badge.webp" width="200"> | <img src="screenshots/cosmic_full.webp" width="200"> |
 
 > **Platforms:** Android and iOS only. This is a mobile-focused package; it does
 > not support web or desktop.
