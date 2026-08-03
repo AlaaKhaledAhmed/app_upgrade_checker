@@ -1,0 +1,56 @@
+name: app_upgrade
+description: "Check for a newer app version from the store (iOS App Store / Google Play) or your backend, and prompt users to update."
+version: 1.0.0
+repository: https://github.com/AlaaKhaledAhmed/app_upgrade
+issue_tracker: https://github.com/AlaaKhaledAhmed/app_upgrade/issues
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+# This is a mobile-only package: the platform detection and store checks are
+# designed for Android and iOS. It intentionally does not support web/desktop.
+platforms:
+  android:
+  ios:
+
+dependencies:
+  flutter:
+    sdk: flutter
+  package_info_plus: ">=9.0.0 <11.0.0"
+  http: ^1.2.2
+  url_launcher: ^6.3.2
+  lottie: ^3.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # To add assets to your package, add an assets section, like this:
+   assets:
+     - assets/image/
+     - assets/lottie/
+     - assets/fonts/
+
+   # A two-weight fallback, subset to Arabic + Latin, so the designs keep their
+   # intended look in an app that ships no font of its own. Callers who have
+   # their own type pass `AppUpgradeTheme.fontFamily` and none of this is used.
+   #
+   # w600 is deliberately absent: only the badge asks for it, and it falls back
+   # to Bold. Carrying a third file for one pill is not worth the bytes.
+   fonts:
+     - family: IBMP
+       fonts:
+         - asset: assets/fonts/IBMPlexSansArabic-Regular.ttf
+           weight: 400
+
+         - asset: assets/fonts/IBMPlexSansArabic-Bold.ttf
+           weight: 700
+

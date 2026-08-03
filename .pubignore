@@ -1,0 +1,56 @@
+# What ships to pub.dev. Anything a consumer of the package can't use is
+# excluded here rather than in .gitignore, so it stays in the repo but out of
+# the published archive.
+#
+# NOTE: .pubignore fully REPLACES .gitignore for publishing — when this file
+# exists, pub stops consulting .gitignore, so every build/tooling path has to
+# be repeated below.
+
+# ── Build output and tool caches ──
+build/
+**/build/
+.dart_tool/
+**/.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+**/.flutter-plugins-dependencies
+/coverage/
+
+# ── Example app scaffolding ──
+# The example is shipped for its `lib/` — that is what pub.dev renders and what
+# pana scores. The generated per-platform host projects are ~6 MB of Gradle,
+# Xcode and CMake boilerplate that no consumer builds from the archive; anyone
+# who wants to run it clones the repo instead.
+example/android/
+example/ios/
+example/web/
+example/linux/
+example/macos/
+example/windows/
+example/.gitignore
+example/example.iml
+example/pubspec.lock
+example/test/
+
+# ── Repo-internal tooling and docs ──
+# docs/ is the GitHub Pages source for the example's remote-JSON endpoints
+# (alaakhaledahmed.github.io/app_upgrade/version/*.json). It must stay in git so
+# Pages keeps serving it, but shipping it would also trip pub's
+# "rename docs/ to doc/" layout hint.
+docs/
+graphify-out/
+CLAUDE.md
+.github/
+
+# ── Editor / OS noise ──
+*.iml
+.idea/
+.vscode/
+.DS_Store
+*.log
+*.swp
+
+# NOTE: screenshots/ is deliberately NOT ignored — the README embeds it with
+# relative paths and pub.dev renders those on the package page.
+# NOTE: test/ is deliberately NOT ignored — shipping tests is conventional and
+# lets consumers verify the package they installed.
