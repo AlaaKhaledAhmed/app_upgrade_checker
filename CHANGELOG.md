@@ -1,8 +1,8 @@
 ## 1.0.1
 
-Documentation only.
-
-* Reorder the README feature table.
+* `viewType` — show the update as a full screen, a dialog or a bottom sheet.
+* `dialogEntrance` — `popIn`, `slideUp`, `fade`, `none` for the dialog and sheet.
+* `AppUpgrade.show` replaces `showUpdateDialog`, now deprecated.
 
 ## 1.0.0
 

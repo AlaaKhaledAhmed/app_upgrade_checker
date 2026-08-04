@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/theme_lang.dart';
 
+import 'package:app_upgrade_checker/src/core/enums/update_view_type.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/motion/dialog_entrance.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/designs/cosmic_design.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/designs/rocket_up_design.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/designs/super_hero_design.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/theme_defaults.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_background.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_badge_style.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_button_style.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_entrance.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_pulse.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_feature.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_background.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_badge_style.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_button_style.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/motion/update_entrance.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/motion/update_pulse.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_feature.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/update_section.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_title.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_visual.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_title.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_visual.dart';
 
 /// The complete look of the built-in update screen: every text, color, asset,
 /// gradient and the vertical order of the blocks.
@@ -168,11 +170,40 @@ final class AppUpgradeTheme {
   /// in an app that has no RTL locale configured.
   final TextDirection? textDirection;
 
+  // ── Presentation ──
+
+  /// Whether the built-in UI is a full screen, a centred dialog or a bottom
+  /// sheet. Defaults to [UpdateViewType.screen].
+  ///
+  /// All three render the same blocks from this same theme, in [order],
+  /// honouring every `show*` flag — only the container differs. The dialog and
+  /// the sheet additionally lift the artwork out of the column into a header
+  /// strip, so it stays above the text wherever [order] places it.
+  final UpdateViewType viewType;
+
   // ── Motion ──
 
-  /// How the screen arrives. Each design picks its own; every variant stays
-  /// under 600ms and degrades to a fade under reduce-motion.
+  /// How the **full screen** arrives. Each design picks its own; every variant
+  /// stays under 600ms and degrades to a fade under reduce-motion.
+  ///
+  /// Read only when [viewType] is [UpdateViewType.screen]. Under
+  /// [UpdateViewType.dialog] and [UpdateViewType.sheet] this field is ignored
+  /// and [dialogEntrance] is used instead — so a theme may carry both and switch
+  /// between them with `copyWith(viewType: …)`.
   final UpdateEntrance entrance;
+
+  /// How the **dialog** and the **sheet** arrive. Defaults to
+  /// [DialogEntrance.popIn] — a zoom up to the card's natural size.
+  ///
+  /// Read only when [viewType] is [UpdateViewType.dialog] or
+  /// [UpdateViewType.sheet]. Under [UpdateViewType.screen] this field is
+  /// ignored and [entrance] is used instead.
+  ///
+  /// It is a separate type from [entrance] on purpose: the screen's variants
+  /// move the backdrop and the content apart by a screen height, which a card
+  /// cannot do. Keeping the types apart means a screen-only entrance cannot be
+  /// handed to a dialog — the compiler rejects it.
+  final DialogEntrance dialogEntrance;
 
   /// The breathing glow behind the primary button. `null` switches it off.
   final UpdatePulse? pulse;
@@ -212,7 +243,9 @@ final class AppUpgradeTheme {
     this.alignment = CrossAxisAlignment.center,
     this.fontFamily,
     this.textDirection,
+    this.viewType = UpdateViewType.screen,
     this.entrance = const UpdateEntrance.fade(),
+    this.dialogEntrance = const DialogEntrance.popIn(),
     this.pulse,
   });
 
@@ -233,6 +266,13 @@ final class AppUpgradeTheme {
   ///   showFeatures: true,   // the three gradient cards
   ///   showBadge: true,      // "NEW UPDATE AVAILABLE"
   /// );
+  /// ```
+  ///
+  /// Pass [viewType] to show the same design as a dialog or a bottom sheet
+  /// instead of a full screen — same blocks, same order, same `show*` flags:
+  ///
+  /// ```dart
+  /// AppUpgradeTheme.cosmic(viewType: UpdateViewType.dialog);
   /// ```
   factory AppUpgradeTheme.cosmic({
     ThemeLang? lang,
@@ -262,7 +302,9 @@ final class AppUpgradeTheme {
     CrossAxisAlignment? alignment,
     String? fontFamily,
     TextDirection? textDirection,
+    UpdateViewType viewType = UpdateViewType.screen,
     UpdateEntrance? entrance,
+    DialogEntrance? dialogEntrance,
     UpdatePulse? pulse,
   }) {
     final l = lang ?? ThemeLang.device;
@@ -297,7 +339,9 @@ final class AppUpgradeTheme {
       alignment: alignment ?? ThemeDefaults.alignment,
       fontFamily: fontFamily,
       textDirection: textDirection ?? (l.isRtl ? TextDirection.rtl : null),
+      viewType: viewType,
       entrance: entrance ?? CosmicDesign.entrance,
+      dialogEntrance: dialogEntrance ?? CosmicDesign.dialogEntrance,
       pulse: pulse ?? CosmicDesign.pulse,
     );
   }
@@ -498,6 +542,15 @@ final class AppUpgradeTheme {
   /// AppUpgradeTheme.cosmic().copyWith(showFeatures: false);
   /// ```
   ///
+  /// It is also how one theme is shown two ways — the entrance for each is
+  /// already on the theme, so only the container changes:
+  ///
+  /// ```dart
+  /// final t = AppUpgradeTheme.cosmic();
+  /// t;                                                  // a full screen
+  /// t.copyWith(viewType: UpdateViewType.dialog);         // the same, as a dialog
+  /// ```
+  ///
   /// Note: [visual] cannot be cleared through `copyWith` — use
   /// `showVisual: false` to hide the artwork.
   AppUpgradeTheme copyWith({
@@ -527,7 +580,9 @@ final class AppUpgradeTheme {
     CrossAxisAlignment? alignment,
     String? fontFamily,
     TextDirection? textDirection,
+    UpdateViewType? viewType,
     UpdateEntrance? entrance,
+    DialogEntrance? dialogEntrance,
     UpdatePulse? pulse,
     // `pulse: null` cannot mean "clear it" — null also means "leave it alone".
     // This flag is the explicit way to switch the glow off.
@@ -560,7 +615,9 @@ final class AppUpgradeTheme {
       alignment: alignment ?? this.alignment,
       fontFamily: fontFamily ?? this.fontFamily,
       textDirection: textDirection ?? this.textDirection,
+      viewType: viewType ?? this.viewType,
       entrance: entrance ?? this.entrance,
+      dialogEntrance: dialogEntrance ?? this.dialogEntrance,
       pulse: noPulse ? null : (pulse ?? this.pulse),
     );
   }

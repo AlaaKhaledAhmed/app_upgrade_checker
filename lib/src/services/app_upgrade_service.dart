@@ -16,8 +16,9 @@ import 'package:app_upgrade_checker/src/data/sources/preview_fetcher.dart';
 import 'package:app_upgrade_checker/src/data/sources/play_store_fetcher.dart';
 import 'package:app_upgrade_checker/src/data/sources/remote_fetcher.dart';
 import 'package:app_upgrade_checker/src/data/sources/update_source.dart';
-import 'package:app_upgrade_checker/src/presentation/app_upgrade_screen.dart';
+import 'package:app_upgrade_checker/src/presentation/screen/app_upgrade_screen.dart';
 import 'package:app_upgrade_checker/src/presentation/app_upgrade_theme.dart';
+import 'package:app_upgrade_checker/src/presentation/shared/update_presenter.dart';
 import 'package:app_upgrade_checker/src/services/network/http_network_service.dart';
 import 'package:app_upgrade_checker/src/services/network/inetwork_services.dart';
 
@@ -27,7 +28,7 @@ import 'package:app_upgrade_checker/src/services/network/inetwork_services.dart'
 /// ```dart
 /// final result = await AppUpgrade.checkUpdate(config);
 /// if (result is UpdateAvailable && context.mounted) {
-///   await AppUpgrade.showUpdateDialog(context, result);
+///   await AppUpgrade.show(context, result);
 /// }
 /// ```
 final class AppUpgrade {
@@ -133,7 +134,7 @@ final class AppUpgrade {
       await _afterFrame();
       if (context.mounted) {
         if (builder != null) {
-          // The custom-widget path owns the flag itself; showUpdateDialog sets
+          // The custom-widget path owns the flag itself; `show` sets
           // its own, so setting it here too would deadlock that branch.
           _isPrompting = true;
           try {
@@ -147,7 +148,7 @@ final class AppUpgrade {
             _isPrompting = false;
           }
         } else {
-          await showUpdateDialog(context, result, theme: theme);
+          await show(context, result, theme: theme);
         }
       }
     }
@@ -257,20 +258,32 @@ final class AppUpgrade {
     return launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 
-  /// Shows the built-in update screen. Optional — consumers may render their
-  /// own UI from the [UpdateAvailable] result instead.
+  /// Shows the built-in update UI and completes when the user dismisses it.
+  /// Optional — consumers may render their own UI from the [UpdateAvailable]
+  /// result instead.
   ///
-  /// [update] drives the screen: `isForceUpdate` decides whether it can be
-  /// dismissed, and `versionName` / `releaseNotes` fill the defaults.
+  /// [update] drives it: `isForceUpdate` decides whether it can be dismissed,
+  /// and `versionName` / `releaseNotes` fill the defaults.
   ///
-  /// [theme] is the screen's complete look — texts, colors, assets and the
-  /// order of the blocks. Defaults to [AppUpgradeTheme.cosmic]. When the
-  /// theme's `description.text` is unset, the update's release notes are shown
-  /// instead.
+  /// [theme] is its complete look — texts, colors, assets and the order of the
+  /// blocks. Defaults to [AppUpgradeTheme.cosmic]. When the theme's
+  /// `description.text` is unset, the update's release notes are shown instead.
   ///
-  /// Calling this while the screen is already up is a no-op, so a double tap
+  /// The theme's `viewType` decides **what form** it takes — a full screen (the
+  /// default), a centred dialog or a bottom sheet. All three show the same
+  /// blocks from the same theme:
+  ///
+  /// ```dart
+  /// AppUpgrade.show(
+  ///   context,
+  ///   update,
+  ///   theme: AppUpgradeTheme.cosmic(viewType: UpdateViewType.dialog),
+  /// );
+  /// ```
+  ///
+  /// Calling this while a prompt is already up is a no-op, so a double tap
   /// cannot stack two copies.
-  static Future<void> showUpdateDialog(
+  static Future<void> show(
     BuildContext context,
     UpdateAvailable update, {
     AppUpgradeTheme? theme,
@@ -278,37 +291,40 @@ final class AppUpgrade {
     if (_isPrompting) return;
     _isPrompting = true;
 
-    final screen = AppUpgradeScreen(
-      isMandatory: update.isForceUpdate,
-      versionName: update.versionName,
-      // The screen falls back to these when the theme has no description.
-      releaseNotes: update.releaseNotes,
-      theme: theme,
-      onUpdate: () {
-        final url = update.storeUrl;
-        if (url != null) openStore(url);
-      },
-      onSkip:
-          update.isForceUpdate ? null : () => Navigator.of(context).maybePop(),
-    );
+    final isMandatory = update.isForceUpdate;
 
     try {
-      // A transition-less route: the screen plays its own entrance (see
-      // AppUpgradeTheme.entrance), so the platform's push animation would fight
-      // it. The reverse transition still fades, so dismissing does not snap.
-      await Navigator.of(context).push<void>(
-        PageRouteBuilder<void>(
-          fullscreenDialog: true,
-          opaque: false,
-          transitionDuration: Duration.zero,
-          reverseTransitionDuration: const Duration(milliseconds: 200),
-          pageBuilder: (_, __, ___) => screen,
-          transitionsBuilder: (_, animation, secondary, child) =>
-              FadeTransition(opacity: animation, child: child),
-        ),
+      await UpdatePresenter.show(
+        context,
+        isMandatory: isMandatory,
+        versionName: update.versionName,
+        // Falls back to these when the theme has no description.
+        releaseNotes: update.releaseNotes,
+        theme: theme,
+        onUpdate: () {
+          final url = update.storeUrl;
+          if (url != null) openStore(url);
+        },
+        // A mandatory update offers no way out.
+        onSkip: isMandatory ? null : () => Navigator.of(context).maybePop(),
       );
     } finally {
       _isPrompting = false;
     }
   }
+
+  /// Shows the built-in update UI.
+  ///
+  /// Renamed: it never only showed a dialog, and since view types it may show a
+  /// full screen, a dialog or a sheet depending on the theme.
+  @Deprecated(
+    'Renamed to AppUpgrade.show — the theme\'s viewType decides whether it is '
+    'a screen, a dialog or a sheet. Will be removed in 2.0.0.',
+  )
+  static Future<void> showUpdateDialog(
+    BuildContext context,
+    UpdateAvailable update, {
+    AppUpgradeTheme? theme,
+  }) =>
+      show(context, update, theme: theme);
 }

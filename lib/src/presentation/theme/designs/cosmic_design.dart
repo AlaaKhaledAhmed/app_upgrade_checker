@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/theme_lang.dart';
 
 import 'package:app_upgrade_checker/src/core/constants/files_path.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/motion/dialog_entrance.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/theme_defaults.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_background.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_badge_style.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_button_style.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_entrance.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_feature.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_pulse.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_background.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_badge_style.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_button_style.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/motion/update_entrance.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_feature.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/motion/update_pulse.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/update_section.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_title.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_visual.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_title.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_visual.dart';
 
 /// The **Cosmic** design's identity: an astronaut riding a rocket over a
 /// starfield, a glowing two-line headline and three gradient feature cards.
@@ -134,7 +135,13 @@ final class CosmicDesign {
 
   /// Dropping out of warp — the space design's natural arrival, and the cheapest
   /// of the expressive entrances.
+  ///
+  /// Used only as a full screen; see [dialogEntrance] for the other two.
   static const UpdateEntrance entrance = UpdateEntrance.warpIn();
+
+  /// A zoom up to the card's natural size — used when Cosmic is shown as a
+  /// dialog or a sheet.
+  static const DialogEntrance dialogEntrance = DialogEntrance.popIn();
 
   /// A blue glow, matching the button's own gradient.
   static const UpdatePulse pulse = UpdatePulse(color: highlight);

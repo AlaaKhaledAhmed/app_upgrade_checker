@@ -16,11 +16,10 @@ animated, fully customizable one.
 |---|---|
 | 🔌 **The version comes from wherever you want** | The store, or a URL you control — your API or a JSON file. With your own URL, **you** set the latest version, the oldest build still allowed, and whether updating is mandatory. |
 | 🌍 **7 languages built in** | Arabic, English, Urdu, Spanish, Hindi, French, Indonesian — follows the device, with automatic RTL. |
+| 🪟 **Screen, dialog or bottom sheet** | Show the update as a full screen, a dialog, or a bottom sheet. |
 | 🧪 **Test mode** | See the update screen while you build — even if your app isn't on the store yet. Try any case: forced, optional, up-to-date, or failed. |
 | 🎨 **3 full-screen designs** | Artwork, animation and a clear call to action — ready to ship as-is. |
-| 🎛️ **28 theme fields** | Reorder or hide any block — or pass your own widget. |
 | ✨ **7 entrance animations** | Automatically respect *reduce motion*. |
-| 🧩 **No backend? Still works** | A static JSON file on GitHub Pages is enough — free, no server. |
 
 ### The three designs
 
@@ -37,6 +36,15 @@ default** — one flag each brings in that design's own content.
 | Default | `showBadge: true` | `showBadge` + `showFeatures` |
 |:---:|:---:|:---:|
 | <img src="screenshots/cosmic.webp" width="200"> | <img src="screenshots/cosmic_badge.webp" width="200"> | <img src="screenshots/cosmic_full.webp" width="200"> |
+
+### Or as a dialog, or a bottom sheet
+
+The same design, the same blocks — a different container. One field: `viewType`.
+
+| `UpdateViewType.dialog` | `UpdateViewType.sheet` |
+|:---:|:---:|
+| <img src="screenshots/cosmic_dialog.webp" width="200"> | <img src="screenshots/cosmic_sheet.webp" width="200"> |
+| `AppUpgradeTheme.cosmic(viewType: UpdateViewType.dialog)` | `AppUpgradeTheme.cosmic(viewType: UpdateViewType.sheet)` |
 
 > **Platforms:** Android and iOS only. This is a mobile-focused package; it does
 > not support web or desktop.
@@ -62,11 +70,12 @@ default** — one flag each brings in that design's own content.
 **Styling**
 
 5. [Theming the screen](#theming-the-screen)
-    - [Every `AppUpgradeTheme` field](#every-appupgradetheme-field) — all 28
+    - [Every `AppUpgradeTheme` field](#every-appupgradetheme-field) — all 30
     - [Theme building blocks](#theme-building-blocks)
     - [Picking and building a theme](#picking-and-building-a-theme)
     - [Blocks: show, hide, reorder](#blocks-show-hide-reorder)
     - [Title, background and artwork](#title-background-and-artwork)
+    - [View type: screen, dialog or sheet](#view-type-screen-dialog-or-sheet)
 6. [Motion](#motion) — entrances, button glow, reduce motion
 
 ---
@@ -188,7 +197,7 @@ switch (result) {
     result.minSupportedVersionCode;  // int?   — CustomSource only, else null
     result.data;                     // the raw response
 
-    if (context.mounted) await AppUpgrade.showUpdateDialog(context, result);
+    if (context.mounted) await AppUpgrade.show(context, result);
     // ...or send them straight there: AppUpgrade.openStore(result.storeUrl!);
   case NoUpdate():
     break;
@@ -198,7 +207,7 @@ switch (result) {
 ```
 
 > **`checkAndPrompt` is just these two combined** — `checkUpdate` to get the
-> result, then `showUpdateDialog` to show it.
+> result, then `AppUpgrade.show` to display it.
 
 ---
 
@@ -379,7 +388,7 @@ The screen carries no styling of its own — a `AppUpgradeTheme` supplies every
 colour, text, asset and animation it draws, and which blocks it draws at all. So
 restyling is never a subclass: you build a theme and pass it as `theme:`.
 
-Three designs ship as named constructors; each fills all 28 fields with its own
+Three designs ship as named constructors; each fills all 30 fields with its own
 values, and you override only what you need.
 
 ### Every `AppUpgradeTheme` field
@@ -409,7 +418,9 @@ Every field is optional; anything you omit keeps the design's own value.
 | `alignment` | `CrossAxisAlignment` | `center` | Horizontal alignment. |
 | `fontFamily` | `String?` | `null` | Your font; `null` uses the bundled one. |
 | `textDirection` | `TextDirection?` | `null` | `null` follows the host app; set `rtl` to force it. |
-| `entrance` | `UpdateEntrance` | per design | How the screen arrives. |
+| `viewType` | `UpdateViewType` | `screen` | The form it takes: `screen` (full page), `dialog` (centred card), `sheet` (bottom sheet). The blocks, the order and the `show*` flags are identical in all three — `dialog` and `sheet` lift the artwork into a header above the card and cap their height at 85% of the screen, scrolling inside it. |
+| `entrance` | `UpdateEntrance` | per design | How the **full screen** arrives: `.warpIn()`, `.rocketPull()`, `.liftoff()`, `.descend()`, `.slideUp()`, `.fade()`, `.none()`. Ignored when `viewType` is `dialog` or `sheet`. |
+| `dialogEntrance` | `DialogEntrance` | `popIn()` | How the **dialog and sheet** arrive: `.popIn()` — zooms up to full size, `.slideUp()`, `.fade()`, `.none()`. Ignored when `viewType` is `screen`. A separate type from `entrance` because a card cannot move its backdrop and content apart the way a full screen can — so a screen-only entrance can't be passed here by mistake. |
 | `pulse` | `UpdatePulse?` | per design | Button glow. `copyWith(noPulse: true)` switches it off. |
 
 ### Theme building blocks
@@ -425,7 +436,9 @@ Every field is optional; anything you omit keeps the design's own value.
 | `UpdateVersionStyle` | `text`, colours, border, radius, padding. |
 | `UpdateBackground` | `.solid(color)`, `.gradient(colors)`, `AssetBackground(path, package:, color:)`, `.none()`. |
 | `UpdateVisual` | `.lottie(path, package:)`, `.asset(path, package:)`, `.network(url)`, `.icon(icon)`, `.custom(builder)` — plus `heightFactor` / `height`. |
-| `UpdateEntrance` | `.fade()`, `.slideUp()`, `.rocketPull()`, `.descend()`, `.warpIn()`, `.liftoff()`, `.none()` — each takes a `duration`. |
+| `UpdateEntrance` | `.fade()`, `.slideUp()`, `.rocketPull()`, `.descend()`, `.warpIn()`, `.liftoff()`, `.none()` — each takes a `duration`. Full screen only. |
+| `DialogEntrance` | `.popIn()` (a zoom up to full size — takes `fromScale`, default `0.85`, and `overshoot`, default `true`), `.slideUp()`, `.fade()`, `.none()`. Dialog and sheet only. |
+| `UpdateViewType` | `screen`, `dialog`, `sheet` — the enum used by `viewType`. |
 | `UpdatePulse` | The breathing glow behind the primary button; `null` on the theme switches it off. |
 | `UpdateSection` | The enum used by `order`: `visual`, `badge`, `title`, `version`, `description`, `features`, `updateButton`, `laterButton`. |
 
@@ -542,13 +555,54 @@ UpdateVisual.custom((context) => MyWidget());
 - Borrow a palette from another design:
   `AppUpgradeTheme.cosmic(background: RocketUpDesign.backgroundStyle)`.
 
+### View type: screen, dialog or sheet
+
+One field decides the form. Everything else about the theme is unchanged:
+
+```dart
+AppUpgradeTheme.cosmic()                                    // full screen (default)
+AppUpgradeTheme.cosmic(viewType: UpdateViewType.dialog)     // centred dialog
+AppUpgradeTheme.cosmic(viewType: UpdateViewType.sheet)      // bottom sheet
+```
+
+The same blocks, the same `order`, the same `show*` flags in all three — so
+everything above applies unchanged:
+
+```dart
+AppUpgradeTheme.cosmic(
+  viewType: UpdateViewType.dialog,
+  showBadge: true,        // works exactly as it does full-screen
+  showFeatures: true,
+);
+```
+
+Two things the dialog and the sheet do differently:
+
+- **the artwork becomes a header.** It's drawn on the background above the card,
+  wherever `order` places it — so the card below holds only text and buttons.
+  `showVisual: false` drops the header entirely and leaves a text-only card.
+- **they cap their own height** at 85% of the screen and scroll inside it, so a
+  long release note or a large system font can't push them off-screen.
+
+Switching an existing theme over is one line, and each form keeps its own motion:
+
+```dart
+final theme = AppUpgradeTheme.cosmic();
+theme;                                              // a full screen
+theme.copyWith(viewType: UpdateViewType.dialog);    // the same, as a dialog
+```
+
+> Currently wired on **Cosmic**. `rocketUp()` and `superHero()` still render as
+> full screens with their own designs.
+
 ---
 
 ## Motion
 
-### Entrances
+### Entrances — full screen
 
-How the screen arrives, picked per design like any other value:
+How the **full screen** arrives, picked per design like any other value. For the
+dialog and the sheet see [Entrances — dialog and sheet](#entrances--dialog-and-sheet).
 
 ```dart
 AppUpgradeTheme.cosmic(entrance: const UpdateEntrance.rocketPull());
@@ -569,6 +623,41 @@ tunable (`duration`, `parallax`, `stagger`, …).
 
 Every entrance runs for **900ms** by default and takes a `duration` of its own:
 `UpdateEntrance.warpIn(duration: Duration(milliseconds: 500))`.
+
+### Entrances — dialog and sheet
+
+A card cannot move its backdrop and its content apart the way a full screen can,
+so the dialog and the sheet have their own, separate set — passed as
+`dialogEntrance`:
+
+```dart
+AppUpgradeTheme.cosmic(
+  viewType: UpdateViewType.dialog,
+  dialogEntrance: const DialogEntrance.slideUp(),
+);
+```
+
+| Entrance | Motion |
+|---|---|
+| `popIn()` | zooms up from smaller to full size while fading in — **the default** |
+| `slideUp()` | rises from the bottom edge |
+| `fade()` | cross-fade |
+| `none()` | shown instantly |
+
+`popIn()` starts at `fromScale: 0.85` and passes full size by a hair before
+settling — pass `overshoot: false` for a clean stop, or another `fromScale` for a
+bigger or smaller zoom.
+
+Because the two are **different types**, a screen-only entrance cannot reach a
+dialog by mistake — the compiler rejects it. Each field is simply ignored in the
+form it does not apply to, so one theme can carry both:
+
+```dart
+AppUpgradeTheme.cosmic(
+  entrance: const UpdateEntrance.liftoff(),        // used as a screen
+  dialogEntrance: const DialogEntrance.popIn(),    // used as a dialog or sheet
+);
+```
 
 ### Button glow
 

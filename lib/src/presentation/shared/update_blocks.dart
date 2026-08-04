@@ -5,14 +5,14 @@ import 'package:app_upgrade_checker/src/core/constants/app_size.dart';
 import 'package:app_upgrade_checker/src/core/constants/app_them.dart';
 import 'package:app_upgrade_checker/src/core/constants/files_path.dart';
 import 'package:app_upgrade_checker/src/core/extensions/context_extensions.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_background.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_badge_style.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_button_style.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_feature.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_title.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_visual.dart';
-import 'package:app_upgrade_checker/src/presentation/widgets/app_decoration.dart';
-import 'package:app_upgrade_checker/src/presentation/widgets/app_text.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_background.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_badge_style.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_button_style.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_feature.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_title.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/styles/update_visual.dart';
+import 'package:app_upgrade_checker/src/presentation/shared/app_decoration.dart';
+import 'package:app_upgrade_checker/src/presentation/shared/app_text.dart';
 
 /// The building blocks of the update screen.
 ///
@@ -22,8 +22,8 @@ import 'package:app_upgrade_checker/src/presentation/widgets/app_text.dart';
 /// screen never interfere.
 ///
 /// Internal: not exported from the package barrel.
-class UpdateSections {
-  const UpdateSections._();
+class UpdateBlocks {
+  const UpdateBlocks._();
 
   /// Resolves an [UpdateBackground] into a [BoxDecoration].
   static BoxDecoration background(UpdateBackground background) {

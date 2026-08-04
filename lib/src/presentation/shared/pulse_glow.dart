@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:app_upgrade_checker/src/core/extensions/color_extensions.dart';
-import 'package:app_upgrade_checker/src/presentation/theme/update_pulse.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/motion/update_pulse.dart';
 
 /// Wraps the primary button in a slow breathing glow.
 ///
