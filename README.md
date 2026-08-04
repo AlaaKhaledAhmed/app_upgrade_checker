@@ -41,10 +41,10 @@ default** — one flag each brings in that design's own content.
 
 The same design, the same blocks — a different container. One field: `viewType`.
 
-| `UpdateViewType.dialog` | `UpdateViewType.sheet` |
-|:---:|:---:|
-| <img src="screenshots/cosmic_dialog.webp" width="200"> | <img src="screenshots/cosmic_sheet.webp" width="200"> |
-| `AppUpgradeTheme.cosmic(viewType: UpdateViewType.dialog)` | `AppUpgradeTheme.cosmic(viewType: UpdateViewType.sheet)` |
+| `UpdateViewType.screen` (default) | `UpdateViewType.dialog` | `UpdateViewType.sheet` |
+|:---:|:---:|:---:|
+| <img src="screenshots/cosmic.webp" width="200"> | <img src="screenshots/cosmic_dialog.webp" width="200"> | <img src="screenshots/cosmic_sheet.webp" width="200"> |
+| `AppUpgradeTheme.cosmic()` | `AppUpgradeTheme.cosmic(viewType: UpdateViewType.dialog)` | `AppUpgradeTheme.cosmic(viewType: UpdateViewType.sheet)` |
 
 > **Platforms:** Android and iOS only. This is a mobile-focused package; it does
 > not support web or desktop.
