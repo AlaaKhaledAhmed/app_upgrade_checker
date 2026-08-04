@@ -90,12 +90,14 @@ const _realConfig = AppConfig(
 /// reads as "you are on the latest version".
 const _jsonFileConfig = AppConfig(
   android: CustomSource(
-    url: 'https://alaakhaledahmed.github.io/app_upgrade_checker/version/android.json',
+    url:
+        'https://alaakhaledahmed.github.io/app_upgrade_checker/version/android.json',
     // Opened by "Update now" when the JSON itself carries no `storeUrl`.
     fallbackStoreUrl: 'https://your.site/download',
   ),
   ios: CustomSource(
-    url: 'https://alaakhaledahmed.github.io/app_upgrade_checker/version/ios.json',
+    url:
+        'https://alaakhaledahmed.github.io/app_upgrade_checker/version/ios.json',
   ),
 );
 
@@ -148,23 +150,27 @@ final _cosmicFull = AppUpgradeTheme.cosmic(
   showFeatures: true,
 );
 
+// ── View type ────────────────────────────────────────────────────────────────
+// `viewType` decides the container, not the content: all three walk the same
+// `order` and honour the same `show*` flags. The dialog and the sheet lift the
+// artwork into a header strip above the card and cap their own height, so long
+// release notes scroll instead of overflowing.
+
+final _dialog = AppUpgradeTheme.cosmic(viewType: UpdateViewType.dialog);
+final _sheet = AppUpgradeTheme.cosmic(viewType: UpdateViewType.sheet);
+
 // ── Motion ───────────────────────────────────────────────────────────────────
 // `entrance` picks how the screen arrives; each design ships its own (Cosmic
 // warps in, RocketUp is pulled up, SuperHero descends). Every variant stays
 // under 600ms and falls back to a fade when the OS asks for reduced motion.
 
 /// Every entrance on the same design, so the only difference is the motion.
+/// Two of the seven, so the difference is visible without a wall of buttons.
+/// The full set is `rocketPull`, `warpIn`, `liftoff`, `descend`, `slideUp`,
+/// `fade` and `none` — each taking its own `duration` and tuning parameters.
 const _entrances = <String, UpdateEntrance>{
   'rocketPull — pulled up from below': UpdateEntrance.rocketPull(),
-  'warpIn — settles out of a jump': UpdateEntrance.warpIn(),
   'liftoff — the backdrop sinks': UpdateEntrance.liftoff(),
-  'descend — arrives from above': UpdateEntrance.descend(),
-  'slideUp — plain slide': UpdateEntrance.slideUp(),
-  'none — no entrance': UpdateEntrance.none(),
-  'rocketPull — faster, more parallax': UpdateEntrance.rocketPull(
-    duration: Duration(milliseconds: 450),
-    parallax: 0.5,
-  ),
 };
 
 /// The button's breathing glow: retuned, and switched off.
@@ -176,28 +182,6 @@ const _pulses = <String, UpdatePulse?>{
   ),
   'No button glow': null,
 };
-
-/// Same blocks, different order and different assets: the feature row moves
-/// above the headline, and the version pill is switched on.
-final _reordered = AppUpgradeTheme.cosmic(
-  order: const [
-    UpdateSection.visual,
-    UpdateSection.features,
-    UpdateSection.title,
-    UpdateSection.version,
-    UpdateSection.description,
-    UpdateSection.updateButton,
-    UpdateSection.laterButton,
-  ],
-  // The row has to be opted in for the reordering to be visible at all.
-  showFeatures: true,
-  showVersion: true,
-  visual: const UpdateVisual.icon(
-    Icons.system_update_rounded,
-    circleGradient: [Colors.deepPurple, Colors.blueAccent],
-  ),
-  background: const UpdateBackground.solid(Color(0xFF120B29)),
-);
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -232,7 +216,7 @@ class HomePage extends StatelessWidget {
     switch (result) {
       case UpdateAvailable(:final versionName):
         _snack(context, 'Real update found: $versionName');
-        await AppUpgrade.showUpdateDialog(context, result);
+        await AppUpgrade.show(context, result);
       case NoUpdate():
         _snack(context, 'Real check: you are on the latest version');
       case UpdateCheckError(:final message):
@@ -255,7 +239,7 @@ class HomePage extends StatelessWidget {
     if (!context.mounted) return;
     switch (result) {
       case UpdateAvailable():
-        await AppUpgrade.showUpdateDialog(context, result);
+        await AppUpgrade.show(context, result);
         break;
       case NoUpdate():
         _snack(context, '$label: you are on the latest version');
@@ -314,15 +298,28 @@ class HomePage extends StatelessWidget {
                     lang: ThemeLang.ar, showBadge: true, showFeatures: true)),
             child: const Text('Arabic (lang: ThemeLang.ar)'),
           ),
+
+          // ── 3. View type ──────────────────────────────────────────────────
+          const _SectionLabel(
+            '3 · View type',
+            'The same design in a dialog or a bottom sheet — same blocks, same '
+                'order, same show* flags.',
+          ),
           FilledButton(
-            onPressed: () => _promptThemed(context, _reordered),
-            child: const Text('Reordered + version pill'),
+            onPressed: () => _promptThemed(context, _dialog),
+            child: const Text('Dialog'),
+          ),
+          FilledButton(
+            onPressed: () => _promptThemed(context, _sheet),
+            child: const Text('Bottom sheet'),
           ),
 
-          // ── 3. Motion ─────────────────────────────────────────────────────
+          // ── 4. Motion ─────────────────────────────────────────────────────
           const _SectionLabel(
-            '3 · Motion',
-            'How the screen arrives, and the glow on the button.',
+            '4 · Motion',
+            'How the screen arrives, and the glow on the button. Two of the '
+                'seven entrances are shown here — see UpdateEntrance for the '
+                'rest, and DialogEntrance for the dialog and sheet.',
           ),
           for (final e in _entrances.entries)
             FilledButton(
@@ -339,9 +336,9 @@ class HomePage extends StatelessWidget {
               child: Text(p.key),
             ),
 
-          // ── 4. The real check ─────────────────────────────────────────────
+          // ── 5. The real check ─────────────────────────────────────────────
           const _SectionLabel(
-            '4 · Real check',
+            '5 · Real check',
             'No preview: a live store lookup using your own AppConfig. Expect '
                 'it to fail until the app is actually published.',
           ),
@@ -350,9 +347,9 @@ class HomePage extends StatelessWidget {
             child: const Text('Run a real store check'),
           ),
 
-          // ── 5. The other method: CustomSource ─────────────────────────────
+          // ── 6. The other method: CustomSource ─────────────────────────────
           const _SectionLabel(
-            '5 · CustomSource — a URL you control',
+            '6 · CustomSource — a URL you control',
             'The alternative to a store lookup: the library GETs your URL and '
                 'reads the JSON contract from it. Nothing about the device is '
                 'sent, so a static file works exactly like a backend. These '
