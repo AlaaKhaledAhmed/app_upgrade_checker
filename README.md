@@ -676,3 +676,16 @@ AppUpgradeTheme.cosmic().copyWith(noPulse: true);   // off
 Every entrance degrades to a short fade and the glow is suppressed when the
 platform's "reduce motion" accessibility setting is on. That setting exists for
 motion sensitivity, so it is honoured automatically and cannot be overridden.
+
+---
+
+## Author
+
+**Alaa Khaled Ahmed** — [@AlaaKhaledAhmed](https://github.com/AlaaKhaledAhmed)
+
+Issues and pull requests are welcome on
+[GitHub](https://github.com/AlaaKhaledAhmed/app_upgrade_checker).
+
+## License
+
+MIT — see [LICENSE](LICENSE).
