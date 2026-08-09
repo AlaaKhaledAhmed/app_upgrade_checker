@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:app_upgrade_checker/src/core/extensions/context_extensions.dart';
@@ -33,7 +35,7 @@ final class AppUpgradeScreen extends StatelessWidget {
   final String? versionName;
 
   /// Called when the user taps the update button — wire this to open the store.
-  final VoidCallback onUpdate;
+  final FutureOr<void> Function() onUpdate;
 
   /// Called when the user taps "Later". Ignored when [isMandatory] is `true`;
   /// pass `null` to hide the action entirely.
