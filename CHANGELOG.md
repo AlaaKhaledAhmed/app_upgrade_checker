@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Documentation and package metadata improvements.
+
 ## 1.0.1
 
 * `viewType` — show the update as a full screen, a dialog or a bottom sheet.

@@ -1,8 +1,41 @@
 name: app_upgrade_checker
-description: "Check for a newer app version from the store (iOS App Store / Google Play) or your backend, and prompt users to update."
-version: 1.0.1
+description: "Check for a newer app version from the store (App Store / Google Play) or your own backend, and prompt users to update with a themeable full screen, dialog or bottom sheet."
+version: 1.0.2
 repository: https://github.com/AlaaKhaledAhmed/app_upgrade_checker
 issue_tracker: https://github.com/AlaaKhaledAhmed/app_upgrade_checker/issues
+
+# Discovery on pub.dev. Each topic is its own browsable page
+# (pub.dev/packages?q=topic:update), so these are a search channel independent of
+# the download-based popularity ranking.
+#
+# pub.dev allows a MAXIMUM OF 5 topics — lowercase, hyphens only, 2-32 chars.
+# These five are the highest-traffic queries for this problem space. The words
+# that did not fit (backend, dialog, bottom sheet) live in `description:` above,
+# which the full-text search indexes as well.
+topics:
+  - update
+  - upgrade
+  - version
+  - app-store
+  - google-play
+
+# Rendered as a gallery on the package page. Paths must resolve inside the
+# published archive — screenshots/ is kept by .pubignore for exactly this reason.
+screenshots:
+  - description: "The Cosmic design as a full-screen update prompt"
+    path: screenshots/cosmic.webp
+  - description: "The Cosmic design with the version badge block enabled"
+    path: screenshots/cosmic_badge.webp
+  - description: "The Cosmic design with every content block enabled, including the what's-new list"
+    path: screenshots/cosmic_full.webp
+  - description: "The Cosmic design presented as a centered dialog"
+    path: screenshots/cosmic_dialog.webp
+  - description: "The Cosmic design presented as a bottom sheet"
+    path: screenshots/cosmic_sheet.webp
+  - description: "The RocketUp design as a full-screen update prompt"
+    path: screenshots/rocket_up.webp
+  - description: "The SuperHero design as a full-screen update prompt"
+    path: screenshots/super_hero.webp
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
