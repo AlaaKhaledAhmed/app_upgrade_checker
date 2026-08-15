@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:app_upgrade_checker/src/core/enums/update_view_type.dart';
@@ -22,7 +24,7 @@ final class AppUpgradeSheet extends StatelessWidget {
   final String? versionName;
 
   /// Called when the user taps the update button.
-  final VoidCallback onUpdate;
+  final FutureOr<void> Function() onUpdate;
 
   /// Called when the user taps "Later". `null` hides the action.
   final VoidCallback? onSkip;

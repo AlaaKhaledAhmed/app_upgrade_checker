@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:app_upgrade_checker/src/presentation/app_upgrade_theme.dart';
@@ -24,7 +26,7 @@ final class UpdateContent {
   final String? releaseNotes;
 
   /// Called when the user taps the update button.
-  final VoidCallback onUpdate;
+  final FutureOr<void> Function() onUpdate;
 
   /// Called when the user taps "Later". `null` hides the action.
   final VoidCallback? onSkip;

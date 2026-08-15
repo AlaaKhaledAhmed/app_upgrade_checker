@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:app_upgrade_checker/src/core/enums/update_view_type.dart';
@@ -21,7 +23,7 @@ final class UpdatePresenter {
   static Future<void> show(
     BuildContext context, {
     required bool isMandatory,
-    required VoidCallback onUpdate,
+    required FutureOr<void> Function() onUpdate,
     required AppUpgradeTheme? theme,
     String? versionName,
     String? releaseNotes,

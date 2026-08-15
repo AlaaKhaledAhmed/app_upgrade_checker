@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -473,59 +475,24 @@ class UpdateBlocks {
   /// [fallbackColor] fills the button when the style names neither a gradient
   /// nor a background color — so a design that forgets to style it still gets a
   /// visible, tappable button rather than a transparent one.
+  ///
+  /// [onTap] may be synchronous or asynchronous. When it returns a `Future` the
+  /// button owns the wait: it disables itself and shows a spinner until that
+  /// future settles. That is what lets an update be applied *inside* the app —
+  /// an in-app download, an MDM/enterprise install — instead of only handing off
+  /// to the store and leaving. A synchronous callback is untouched by this: it
+  /// never enters the busy state, so hand-off actions behave exactly as before.
   static Widget updateButton(
     UpdateButtonStyle style, {
-    required VoidCallback onTap,
+    required FutureOr<void> Function() onTap,
     required Color fallbackColor,
     String? fontFamily,
   }) {
-    final icon = style.iconWidget ??
-        (style.icon == null
-            ? null
-            : Icon(
-                style.icon,
-                size: style.iconSize ?? AppSize.largeIconSize,
-                color: style.iconColor,
-              ));
-
-    return InkWell(
+    return _UpdateButton(
+      style: style,
       onTap: onTap,
-      borderRadius: BorderRadius.circular(style.radius),
-      child: Container(
-        padding: style.padding,
-        alignment: Alignment.center,
-        width: double.infinity,
-        decoration: AppDecoration.decoration(
-          radius: style.radius,
-          isGradient: style.gradient != null,
-          gradient: style.gradient == null
-              ? null
-              : LinearGradient(
-                  colors: style.gradient!,
-                  begin: style.gradientBegin,
-                  end: style.gradientEnd,
-                ),
-          color: style.backgroundColor ??
-              (style.gradient == null ? fallbackColor : null),
-          showBorder: style.borderColor != null,
-          borderColor: style.borderColor,
-          borderWidth: style.borderWidth,
-        ),
-        child: Row(
-          spacing: style.iconSpacing,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (icon != null) icon,
-            AppText(
-              text: style.text,
-              color: style.textColor,
-              fontSize: style.fontSize,
-              fontWeight: style.fontWeight,
-              fontFamily: fontFamily,
-            ),
-          ],
-        ),
-      ),
+      fallbackColor: fallbackColor,
+      fontFamily: fontFamily,
     );
   }
 
@@ -567,4 +534,138 @@ class UpdateBlocks {
   }
 
   static bool _has(String? value) => value != null && value.trim().isNotEmpty;
+}
+
+
+/// The primary button, which owns the "action in flight" state.
+///
+/// Kept private: [UpdateBlocks.updateButton] is the only way to build it, so the
+/// screen, dialog and sheet all get this behaviour without knowing about it.
+class _UpdateButton extends StatefulWidget {
+  const _UpdateButton({
+    required this.style,
+    required this.onTap,
+    required this.fallbackColor,
+    this.fontFamily,
+  });
+
+  final UpdateButtonStyle style;
+  final FutureOr<void> Function() onTap;
+  final Color fallbackColor;
+  final String? fontFamily;
+
+  @override
+  State<_UpdateButton> createState() => _UpdateButtonState();
+}
+
+class _UpdateButtonState extends State<_UpdateButton> {
+  bool _busy = false;
+
+  Future<void> _handleTap() async {
+    if (_busy) return; // a second tap while in flight does nothing
+
+    final result = widget.onTap();
+
+    // Synchronous callback: nothing to wait for. Returning here means a
+    // hand-off action (open the store, then leave) never flashes a spinner —
+    // behaviour for existing callers is unchanged.
+    if (result is! Future) return;
+
+    setState(() => _busy = true);
+    try {
+      await result;
+    } catch (error, stack) {
+      // Reported through Flutter's error channel rather than left to escape as
+      // an unhandled async error: `InkWell.onTap` cannot await this, so a
+      // throwing callback would otherwise reach the zone handler and could take
+      // the app down. The app still sees it (logs, Crashlytics), and the button
+      // is restored below so a failed action stays retryable.
+      FlutterError.reportError(FlutterErrorDetails(
+        exception: error,
+        stack: stack,
+        library: 'app_upgrade_checker',
+        context: ErrorDescription('while running the update action'),
+      ));
+    } finally {
+      // The action may have replaced this route, so the button can be gone.
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final style = widget.style;
+
+    final icon = style.iconWidget ??
+        (style.icon == null
+            ? null
+            : Icon(
+                style.icon,
+                size: style.iconSize ?? AppSize.largeIconSize,
+                color: style.iconColor,
+              ));
+
+    final label = Row(
+      spacing: style.iconSpacing,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (icon != null) icon,
+        AppText(
+          text: style.text,
+          color: style.textColor,
+          fontSize: style.fontSize,
+          fontWeight: style.fontWeight,
+          fontFamily: widget.fontFamily,
+        ),
+      ],
+    );
+
+    final spinnerSize = (style.fontSize ?? AppSize.buttonFontSize) + 2;
+
+    return InkWell(
+      // Null while busy so the ripple is suppressed too, not just the callback.
+      onTap: _busy ? null : _handleTap,
+      borderRadius: BorderRadius.circular(style.radius),
+      child: Container(
+        padding: style.padding,
+        alignment: Alignment.center,
+        width: double.infinity,
+        decoration: AppDecoration.decoration(
+          radius: style.radius,
+          isGradient: style.gradient != null,
+          gradient: style.gradient == null
+              ? null
+              : LinearGradient(
+                  colors: style.gradient!,
+                  begin: style.gradientBegin,
+                  end: style.gradientEnd,
+                ),
+          color: style.backgroundColor ??
+              (style.gradient == null ? widget.fallbackColor : null),
+          showBorder: style.borderColor != null,
+          borderColor: style.borderColor,
+          borderWidth: style.borderWidth,
+        ),
+        // The label keeps its space while hidden, so swapping in the spinner
+        // cannot change the button's size and shift the layout around it.
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Opacity(opacity: _busy ? 0 : 1, child: label),
+            if (_busy)
+              SizedBox(
+                height: spinnerSize,
+                width: spinnerSize,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  // Matches the label, so the spinner reads on whatever fill
+                  // the design chose without naming a second colour.
+                  valueColor: AlwaysStoppedAnimation<Color>(style.textColor),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
 }
