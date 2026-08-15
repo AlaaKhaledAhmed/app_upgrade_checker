@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/theme_lang.dart';
 
 import 'package:app_upgrade_checker/src/core/constants/files_path.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/motion/dialog_entrance.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/theme_defaults.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/styles/update_background.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/styles/update_badge_style.dart';
@@ -187,7 +188,13 @@ final class SuperHeroDesign {
 
   /// A plain slide up from the bottom edge — no parallax, no stagger, so the
   /// artwork and the copy arrive together.
+  ///
+  /// Used only as a full screen; see [dialogEntrance] for the other two.
   static const UpdateEntrance entrance = UpdateEntrance.slideUp();
+
+  /// The same plain rise, as a card — matching [entrance] so the design reads
+  /// the same whichever form it takes.
+  static const DialogEntrance dialogEntrance = DialogEntrance.slideUp();
 
   /// An ember glow, matching the button's own gradient.
   static const UpdatePulse pulse = UpdatePulse(color: emberOrange);

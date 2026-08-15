@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/theme_lang.dart';
 
 import 'package:app_upgrade_checker/src/core/constants/files_path.dart';
+import 'package:app_upgrade_checker/src/presentation/theme/motion/dialog_entrance.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/theme_defaults.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/styles/update_background.dart';
 import 'package:app_upgrade_checker/src/presentation/theme/styles/update_badge_style.dart';
@@ -183,7 +184,13 @@ final class RocketUpDesign {
 
   /// The rocket pulls the page up from below — the signature entrance for this
   /// design, and the reason the artwork leads the panel.
+  ///
+  /// Used only as a full screen; see [dialogEntrance] for the other two.
   static const UpdateEntrance entrance = UpdateEntrance.rocketPull();
+
+  /// A rise from below — the card keeps the upward travel of [entrance] in the
+  /// form a dialog or a sheet can carry.
+  static const DialogEntrance dialogEntrance = DialogEntrance.slideUp();
 
   /// A magenta glow, matching the button's own gradient.
   static const UpdatePulse pulse = UpdatePulse(color: magenta);

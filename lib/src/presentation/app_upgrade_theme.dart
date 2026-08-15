@@ -362,6 +362,13 @@ final class AppUpgradeTheme {
   ///   textDirection: TextDirection.rtl,
   /// );
   /// ```
+  ///
+  /// Pass [viewType] to show the same design as a dialog or a bottom sheet
+  /// instead of a full screen — same blocks, same order, same `show*` flags:
+  ///
+  /// ```dart
+  /// AppUpgradeTheme.rocketUp(viewType: UpdateViewType.dialog);
+  /// ```
   factory AppUpgradeTheme.rocketUp({
     ThemeLang? lang,
     List<UpdateSection>? order,
@@ -390,7 +397,9 @@ final class AppUpgradeTheme {
     CrossAxisAlignment? alignment,
     String? fontFamily,
     TextDirection? textDirection,
+    UpdateViewType viewType = UpdateViewType.screen,
     UpdateEntrance? entrance,
+    DialogEntrance? dialogEntrance,
     UpdatePulse? pulse,
   }) {
     final l = lang ?? ThemeLang.device;
@@ -427,7 +436,9 @@ final class AppUpgradeTheme {
       alignment: alignment ?? ThemeDefaults.alignment,
       fontFamily: fontFamily,
       textDirection: textDirection ?? (l.isRtl ? TextDirection.rtl : null),
+      viewType: viewType,
       entrance: entrance ?? RocketUpDesign.entrance,
+      dialogEntrance: dialogEntrance ?? RocketUpDesign.dialogEntrance,
       pulse: pulse ?? RocketUpDesign.pulse,
     );
   }
@@ -447,6 +458,13 @@ final class AppUpgradeTheme {
   ///   ),
   ///   textDirection: TextDirection.rtl,
   /// );
+  /// ```
+  ///
+  /// Pass [viewType] to show the same design as a dialog or a bottom sheet
+  /// instead of a full screen — same blocks, same order, same `show*` flags:
+  ///
+  /// ```dart
+  /// AppUpgradeTheme.superHero(viewType: UpdateViewType.dialog);
   /// ```
   factory AppUpgradeTheme.superHero({
     ThemeLang? lang,
@@ -476,7 +494,9 @@ final class AppUpgradeTheme {
     CrossAxisAlignment? alignment,
     String? fontFamily,
     TextDirection? textDirection,
+    UpdateViewType viewType = UpdateViewType.screen,
     UpdateEntrance? entrance,
+    DialogEntrance? dialogEntrance,
     UpdatePulse? pulse,
   }) {
     final l = lang ?? ThemeLang.device;
@@ -514,7 +534,9 @@ final class AppUpgradeTheme {
       alignment: alignment ?? ThemeDefaults.alignment,
       fontFamily: fontFamily,
       textDirection: textDirection ?? (l.isRtl ? TextDirection.rtl : null),
+      viewType: viewType,
       entrance: entrance ?? SuperHeroDesign.entrance,
+      dialogEntrance: dialogEntrance ?? SuperHeroDesign.dialogEntrance,
       pulse: pulse ?? SuperHeroDesign.pulse,
     );
   }
